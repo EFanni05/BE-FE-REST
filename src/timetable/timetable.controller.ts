@@ -7,7 +7,7 @@ import { UpdateTimetableDto } from './dto/update-timetable.dto';
 export class TimetableController {
   constructor(private readonly timetableService: TimetableService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createTimetableDto: CreateTimetableDto) {
     return this.timetableService.create(createTimetableDto);
   }
@@ -25,18 +25,5 @@ export class TimetableController {
   @Get('find-stop:id')
   findAllStop(@Param('id') id : string){
     return this.timetableService.findAllOneRoute(+id)
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTimetableDto: UpdateTimetableDto) {
-    if(parseInt(id) != updateTimetableDto.id){
-      throw new ForbiddenException('The two id are not the same')
-    }
-    return this.timetableService.update(+id, updateTimetableDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.timetableService.remove(+id);
   }
 }
