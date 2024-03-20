@@ -9,3 +9,17 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Routes{
+  id Int @id @default(autoincrement())
+  staringStop String
+  endingStop String
+  timetable Timetable[]
+}
+
+model Timetable{
+  id Int @id @default(autoincrement())
+  time DateTime @db.Timestamp()
+  route_id Int
+  routes Routes @relation(fields: [route_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
